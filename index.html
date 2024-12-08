@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Maker</title>
+  <style>
+    /* General Reset and Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Light & Dark Mode Default Variables */
+    :root {
+      --primary-bg: #e3eafc;
+      --secondary-bg: #d9a7c7;
+      --text-color: #333;
+      --button-bg: #333;
+      --button-hover-bg: #555;
+    }
+
+    body.dark-mode {
+      --primary-bg: #121212;
+      --secondary-bg: #333;
+      --text-color: #ffffff;
+      --button-bg: #555;
+      --button-hover-bg: #777;
+    }
+
+    /* General Styles */
+    body {
+      background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--button-bg);
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Main Form Section */
+    .form-container {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .form-container {
+      background-color: #333;
+    }
+
+    .form-container h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode input[type="text"],
+    body.dark-mode textarea {
+      background-color: #555;
+      color: white;
+      border: 1px solid #777;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: var(--button-bg);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--button-hover-bg);
+    }
+
+    /* Portfolio Preview */
+    #portfolio-preview {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: none;
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    body.dark-mode #portfolio-preview {
+      background-color: #555;
+    }
+
+    #portfolio-preview img {
+      max-width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    #portfolio-preview h2 {
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      padding: 8px 15px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: #555;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .form-container,
+      #portfolio-preview {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Dark Mode Toggle Button -->
+  <button class="dark-mode-toggle" id="toggleDarkMode">🌓 Dark Mode</button>
+
+  <!-- Header Section -->
+  <header>
+    🖌️ Portfolio Maker 🖌️
+  </header>
+
+  <!-- User Input Section -->
+  <div class="form-container">
+    <h3>✨ Create Your Dynamic Portfolio ✨</h3>
+    <input type="file" id="photo" />
+    <input type="text" id="name" placeholder="Your Full Name" />
+    <input type="text" id="profession" placeholder="Your Profession" />
+    <textarea id="about" placeholder="Write a brief about yourself" rows="3"></textarea>
+    <input type="text" id="skills" placeholder="Enter your skills separated by commas" />
+
+    <div style="margin: 10px 0;">
+      <h4>Social Media Links:</h4>
+      <input type="text" id="linkedin" placeholder="LinkedIn Profile URL" />
+      <input type="text" id="facebook" placeholder="Facebook Profile URL" />
+      <input type="text" id="instagram" placeholder="Instagram Profile URL" />
+      <input type="text" id="x" placeholder="X (formerly Twitter) Profile URL" />
+    </div>
+
+    <button id="generate-portfolio">Generate Portfolio</button>
+  </div>
+
+  <!-- Portfolio Preview Section -->
+  <div id="portfolio-preview">
+    <img id="preview-photo" src="" alt="Your Photo" />
+    <h2 id="preview-name">Name</h2>
+    <h4 id="preview-profession">Profession</h4>
+    <p id="preview-about">About Text</p>
+  </div>
+
+  <script>
+    let isDarkMode = false;
+    const toggleDarkMode = document.getElementById('toggleDarkMode');
+
+    toggleDarkMode.addEventListener('click', () => {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('dark-mode', isDarkMode);
+      toggleDarkMode.innerText = isDarkMode ? '🌞 Light Mode' : '🌓 Dark Mode';
+    });
+  </script>
+</body>
+
+</html>
